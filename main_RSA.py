@@ -1,11 +1,11 @@
 import logging
 from sym_api_client_python.configure.configure import SymConfig
 from sym_api_client_python.auth.rsa_auth import SymBotRSAAuth
-from sym_api_client_python.clients.SymBotClient import SymBotClient
+from sym_api_client_python.clients.sym_bot_client import SymBotClient
 from sym_api_client_python.listeners.\
-        imListenerTestImp import IMListenerTestImp
+        im_listener_test_imp import IMListenerTestImp
 from sym_api_client_python.listeners.\
-        roomListenerTestImp import RoomListenerTestImp
+        room_listener_test_imp import RoomListenerTestImp
 
 
 def configure_logging():
