@@ -2,7 +2,7 @@ import requests
 import json
 import logging
 from ..DataFeedEventService import DataFeedEventService
-from .apiClient import APIClient
+from .api_client import APIClient
 from ..exceptions.APIClientErrorException import APIClientErrorException
 from ..exceptions.ForbiddenException import ForbiddenException
 from ..exceptions.ServerErrorException import ServerErrorException
@@ -17,7 +17,7 @@ class UserClient(APIClient):
 
     def __init__(self, botClient):
         self.botClient = botClient
-        self.config = self.botClient.getSymConfig()
+        self.config = self.botClient.get_sym_config()
         if self.config.data['proxyURL']:
             self.proxies = {"https": self.config.data['proxyURL']}
         else:
@@ -25,7 +25,7 @@ class UserClient(APIClient):
 
     def getUserFromUsername(self, userName):
         logging.debug('UserClient/getUserFromUserName()')
-        headers = {'sessionToken': self.botClient.getSymAuth().getSessionToken()}
+        headers = {'sessionToken': self.botClient.get_sym_auth().get_session_token()}
         url = self.config.data['podHost']+'/pod/v2/user'
         params = {'username': userName}
         response = requests.get(url, headers=headers, params=params, proxies=self.proxies)
@@ -33,13 +33,13 @@ class UserClient(APIClient):
             return json.loads(response.text)
         else:
             try:
-                super().handleError(response, self.botClient)
+                super().handle_error(response, self.botClient)
             except UnauthorizedException:
                 self.getUserFromUserName(userName)
 
     def getUserFromEmail(self, email, local=False):
         logging.debug('UserClient/getUserFromEmail()')
-        headers = {'sessionToken': self.botClient.getSymAuth().getSessionToken()}
+        headers = {'sessionToken': self.botClient.get_sym_auth().get_session_token()}
         url = self.config.data['podHost']+'/pod/v2/user'
         params = {'email': email, 'local':local}
         response = requests.get(url, headers=headers, params=params, proxies=self.proxies)
@@ -47,13 +47,13 @@ class UserClient(APIClient):
             return json.loads(response.text)
         else:
             try:
-                super().handleError(response, self.botClient)
+                super().handle_error(response, self.botClient)
             except UnauthorizedException:
                 self.getUserFromEmail(email)
 
     def getUserFromId(self, id, local=False):
         logging.debug('UserClient/getUserFromId')
-        headers = {'sessionToken': self.botClient.getSymAuth().getSessionToken()}
+        headers = {'sessionToken': self.botClient.get_sym_auth().get_session_token()}
         url = self.config.data['podHost']+'/pod/v2/user'
         params = {'uid': id, 'local':local}
         response = requests.get(url, headers=headers, params=params, proxies=self.proxies)
@@ -61,14 +61,14 @@ class UserClient(APIClient):
             return json.loads(response.text)
         else:
             try:
-                super().handleError(response, self.botClient)
+                super().handle_error(response, self.botClient)
             except UnauthorizedException:
                 self.getUserFromId(id)
 
 
     def getUsersFromIdList(self, idList, local=False):
         logging.debug('UserClient/getUsersFromIdList()')
-        headers = {'sessionToken': self.botClient.getSymAuth().getSessionToken()}
+        headers = {'sessionToken': self.botClient.get_sym_auth().get_session_token()}
         url = self.config.data['podHost']+'/pod/v3/users'
         usersArray = ','.join(map(str,idList))
         params = {'uid': usersArray, 'local': local}
@@ -78,13 +78,13 @@ class UserClient(APIClient):
             return json.loads(response.text)
         else:
             try:
-                super().handleError(response, self.botClient)
+                super().handle_error(response, self.botClient)
             except UnauthorizedException:
                 self.getUsersFromIdList(idList)
 
     def getUsersFromEmailList(self, emailList, local=False):
         logging.debug('UserClient/getUsersFromEmailList()')
-        headers = {'sessionToken': self.botClient.getSymAuth().getSessionToken()}
+        headers = {'sessionToken': self.botClient.get_sym_auth().get_session_token()}
         url = self.config.data['podHost']+'/pod/v3/users'
         usersArray = ','.join(map(str,emailList))
         print(usersArray)
@@ -95,13 +95,13 @@ class UserClient(APIClient):
             return json.loads(response.text)
         else:
             try:
-                super().handleError(response, self.botClient)
+                super().handle_error(response, self.botClient)
             except UnauthorizedException:
                 self.getUsersFromIdList(idList)
 
     def searchUsers(self, query, local=False, skip=0, limit=50, filter={}):
         logging.debug('UserClient/searchUsers()')
-        headers = {'sessionToken': self.botClient.getSymAuth().getSessionToken()}
+        headers = {'sessionToken': self.botClient.get_sym_auth().get_session_token()}
         url = self.config.data['podHost']+'/pod/v1/user/search'
         params = {'local': local, 'skip': skip, 'limit': limit}
         data = {'query':query, 'filters': filter}
@@ -112,6 +112,6 @@ class UserClient(APIClient):
         else:
             print(response.status_code)
             try:
-                super().handleError(response, self.botClient)
+                super().handle_error(response, self.botClient)
             except UnauthorizedException:
                 self.searchUsers(query, local, skip, limit)
