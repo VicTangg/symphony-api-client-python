@@ -1,4 +1,4 @@
-from .ConnectionListener import ConnectionListener
+from .connection_listener import ConnectionListener
 import logging
 
 # sample implementation of Abstract imListener class
@@ -10,8 +10,7 @@ import logging
 class ConnectionListenerTestImp(ConnectionListener):
     """Example implementation of ConnectionListener
 
-    Args:
-        sym_bot_client: respond to incoming events
+        sym_bot_client: contains clients which respond to incoming events
 
     """
 

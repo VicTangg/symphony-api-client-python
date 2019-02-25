@@ -1,12 +1,17 @@
 import logging
-from .RoomListener import RoomListener
-from .chatbot.messageProcessor import MessageProcessor
+from .room_listener import RoomListener
+from .chatbot.message_processor import MessageProcessor
 # A sample implementation of Abstract RoomListener class
 # The listener can respond to incoming events if the respective event
 # handler has been implemented
 
 
 class RoomListenerTestImp(RoomListener):
+    """Example implementation of RoomListener
+
+        sym_bot_client: contains clients which respond to incoming events
+
+    """
 
     def __init__(self, sym_bot_client):
         self.bot_client = sym_bot_client

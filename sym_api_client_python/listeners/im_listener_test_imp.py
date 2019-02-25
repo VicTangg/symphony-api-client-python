@@ -1,4 +1,4 @@
-from .imListener import IMListener
+from .im_listener import IMListener
 import logging
 # A sample implementation of Abstract imListener class
 # The listener can respond to incoming events if the respective event
@@ -6,6 +6,11 @@ import logging
 
 
 class IMListenerTestImp(IMListener):
+    """Example implementation of IMListener
+
+        sym_bot_client: contains clients which respond to incoming events
+
+    """
 
     def __init__(self, sym_bot_client):
         self.botClient = sym_bot_client
