@@ -91,7 +91,7 @@ class Auth:
 
         if response.status_code == 200:
             data = json.loads(response.text)
-            logging.debug('Auth/session token success: ' + data['token'])
+            logging.debug('Auth/session token success')
             self.session_token = data['token']
         else:
             logging.debug('Auth/get_session_token() failed: {}'.format(
@@ -121,7 +121,7 @@ class Auth:
 
         if response.status_code == 200:
             data = json.loads(response.text)
-            logging.debug('Auth/keymanager token sucess: ' + data['token'])
+            logging.debug('Auth/keymanager token success')
             self.key_manager_token = data['token']
         else:
             logging.debug(
