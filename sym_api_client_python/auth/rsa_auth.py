@@ -86,11 +86,9 @@ class SymBotRSAAuth(APIClient):
             'token': self.create_jwt()
         }
         url = self.config.data['sessionAuthHost']+'/login/pubkey/authenticate'
-        print(url)
         response = requests.post(url, json=data, proxies=self.proxies)
         if response.status_code == 200:
             data = json.loads(response.text)
-            logging.debug(data['token'])
             self.session_token = data['token']
         else:
             logging.debug('RSA_auth/get_session_token() function failed')
@@ -105,11 +103,9 @@ class SymBotRSAAuth(APIClient):
             'token': self.create_jwt()
         }
         url = self.config.data['keyAuthHost']+'/relay/pubkey/authenticate'
-        print(url)
         response = requests.post(url, json=data)
         if response.status_code == 200:
             data = json.loads(response.text)
-            logging.debug(data['token'])
             self.key_manager_token = data['token']
         else:
             logging.debug('RSA_auth/get_keyauth() function failed')
