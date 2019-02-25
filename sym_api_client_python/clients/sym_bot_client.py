@@ -1,9 +1,9 @@
 from .datafeed_client import DataFeedClient
-from ..DataFeedEventService import DataFeedEventService
+from ..datafeed_event_service import DataFeedEventService
 from .message_client import MessageClient
 from .stream_client import StreamClient
 from .api_client import APIClient
-from .UserClient import UserClient
+from .user_client import UserClient
 
 # SymBotClient class is the Client class that has access to all of the other
 # client classes upon initialization, SymBotClient class gets an instance of
