@@ -96,6 +96,7 @@ Adjust the following paths in the sample to match your configuration
  - "sym_api_client_python/logs/example.log"
  - "sym_api_client_python/resources/config.json"
 
+Example Main Class:
 
     import logging
     from sym_api_client_python.configure.configure import SymConfig
