@@ -19,7 +19,6 @@ class SymBotRSAAuth(APIClient):
         """
         self.config = config
         self.last_auth_time = 0
-        self.jwt = None
         self.session_token = None
         self.key_manager_token = None
         if self.config.data['proxyURL']:
@@ -40,14 +39,12 @@ class SymBotRSAAuth(APIClient):
 
     def authenticate(self):
         """
-        Get the session and key manager token by calling APIs
-        JWT token is created and used for authentication.
+        Get the session and key manager token
         """
         logging.debug('Auth/authenticate()')
         if (self.last_auth_time == 0) or (int(round(time.time() * 1000) -
                                               self.last_auth_time >= 3000)):
             logging.debug('Auth/authenticate() --> needed to authenticate')
-            self.jwt = self.create_jwt()
             self.last_auth_time = int(round(time.time() * 1000))
             self.session_authenticate()
             self.key_manager_authenticate()
@@ -86,7 +83,7 @@ class SymBotRSAAuth(APIClient):
         """
         logging.debug('RSA_auth/get_session_token() function started')
         data = {
-            'token': self.jwt
+            'token': self.create_jwt()
         }
         url = self.config.data['sessionAuthHost']+'/login/pubkey/authenticate'
         print(url)
@@ -105,7 +102,7 @@ class SymBotRSAAuth(APIClient):
         """
         logging.debug('RSA_auth/get_keyauth() function started')
         data = {
-            'token': self.jwt
+            'token': self.create_jwt()
         }
         url = self.config.data['keyAuthHost']+'/relay/pubkey/authenticate'
         print(url)
